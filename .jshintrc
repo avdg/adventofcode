@@ -1,4 +1,5 @@
 {
-    "strict": "global",
-    "esversion": "6"
+    "globalstrict": "true",
+    "esnext": "true",
+    "node": "true"
 }
