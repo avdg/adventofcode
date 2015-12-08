@@ -14,9 +14,16 @@ rl.on('line', function(line) {
         let attempt = md5.digest('hex');
 
         if (/^0{5,}/.test(attempt)) {
-            console.log(line + ": found a solution with number " + i + " - " +
+            console.log(line + ": found a 5 zeroes solution with number " + i + " - " +
                 line + i + " has a hash of " + attempt
             );
+        }
+
+        if (/^0{6,}/.test(attempt)) {
+            console.log(line + ": found a 6 zeroes solution with number " + i + " - " +
+                line + i + " has a hash of " + attempt
+            );
+            console.log("Limit reached, solved what we need");
             return;
         }
     }
