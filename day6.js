@@ -7,21 +7,39 @@ let rl = readline.createInterface({
 });
 
 let grid = [];
+let brightnessGrid = [];
 let lightOn = 0;
+let brightness = 0;
+
 let set = (setOn, x, y) => {
     if (grid[x] === undefined) {
         grid[x] = [];
+        brightnessGrid[x] = [];
     }
 
     if (setOn) {
         if (grid[x][y] !== true) {
             lightOn++;
         }
+
+        if (brightnessGrid[x][y] && brightnessGrid[x][y] > 0) {
+            brightnessGrid[x][y]++;
+        } else {
+            brightnessGrid[x][y] = 1;
+        }
+
         grid[x][y] = true;
+        brightness++;
     } else {
         if (grid[x][y] === true) {
             lightOn--;
         }
+
+        if (brightnessGrid[x][y] && brightnessGrid[x][y] > 0) {
+            brightnessGrid[x][y]--;
+            brightness--;
+        }
+
         grid[x][y] = false;
     }
 };
@@ -29,6 +47,7 @@ let set = (setOn, x, y) => {
 let toggle = (x, y) => {
     if (grid[x] === undefined) {
         grid[x] = [];
+        brightnessGrid[x] = [];
     }
 
     if (grid[x][y] === undefined || grid[x][y] === false) {
@@ -38,6 +57,14 @@ let toggle = (x, y) => {
         grid[x][y] = false;
         lightOn--;
     }
+
+    if (brightnessGrid[x][y] === undefined) {
+        brightnessGrid[x][y] = 2;
+    } else {
+        brightnessGrid[x][y] += 2;
+    }
+
+    brightness += 2;
 };
 
 let update = (instruction, x1, y1, x2, y2) => {
@@ -94,5 +121,6 @@ rl.on('line', function(line) {
 });
 
 rl.on('close', function() {
-    console.log(lightOn + " lights are now on");
+    console.log(lightOn + " lights are now on if using an on/off switch");
+    console.log(brightness + " is the total brightness the installation is giving");
 });
